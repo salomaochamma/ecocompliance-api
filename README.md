@@ -461,6 +461,14 @@ Recurso não encontrado:
 
 ## Postman Collection
 
+## Screenshots
+
+### Login JWT (POST /auth/login)
+![Login JWT funcionando](docs/login.png)
+
+### Listagem de empresas (GET /empresas)
+![Listar empresas via Postman](docs/empresas.png)
+
 A coleção está em `postman/EcoCompliance-API.postman_collection.json`.
 
 ### Importar no Postman
