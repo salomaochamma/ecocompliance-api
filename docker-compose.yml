@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: ecocompliance-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: ecocompliance
+      APP_USER_PASSWORD: ecocompliance123
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    networks:
+      - ecocompliance-net
+
+  ecocompliance-api:
+    build: .
+    container_name: ecocompliance-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:oracle:thin:@oracle-db:1521/XEPDB1
+      DB_USERNAME: ecocompliance
+      DB_PASSWORD: ecocompliance123
+      JWT_SECRET: Y2hhdmUtc2VjcmV0YS1lY29jb21wbGlhbmNlLWFwaS1maWFwLTIwMjUtbXVpdG8tbG9uZ2EtZS1zZWd1cmE=
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    networks:
+      - ecocompliance-net
+
+volumes:
+  oracle-data:
+
+networks:
+  ecocompliance-net:
+    driver: bridge

@@ -1,0 +1,11 @@
+target/
+.idea/
+*.iml
+.git/
+.gitignore
+.mvn/
+mvnw
+mvnw.cmd
+*.md
+postman/
+.vscode/

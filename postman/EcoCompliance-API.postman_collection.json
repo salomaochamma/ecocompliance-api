@@ -1,0 +1,383 @@
+{
+  "info": {
+    "name": "EcoCompliance API",
+    "description": "Coleo de endpoints do EcoCompliance API - ESG: Governana e Compliance Ambiental",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "ecocompliance-collection-001"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register (Admin)",
+          "request": {
+            "method": "POST",
+            "auth": {"type": "noauth"},
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Novo Admin\",\n  \"email\": \"novoadmin@ecocompliance.com\",\n  \"senha\": \"admin123\",\n  \"role\": \"ADMIN\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('token', json.token); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "auth": {"type": "noauth"},
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@ecocompliance.com\",\n  \"senha\": \"admin123\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Login (User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('token', json.token); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "auth": {"type": "noauth"},
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@ecocompliance.com\",\n  \"senha\": \"user123\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empresas",
+      "item": [
+        {
+          "name": "Listar empresas",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empresas"
+          }
+        },
+        {
+          "name": "Buscar empresa por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empresas/1"
+          }
+        },
+        {
+          "name": "Criar empresa",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Nova Empresa Verde Ltda\",\n  \"cnpj\": \"99.888.777/0001-66\",\n  \"setor\": \"Tecnologia\",\n  \"emailResponsavel\": \"esg@novaempresa.com.br\"\n}"
+            },
+            "url": "{{baseUrl}}/empresas"
+          }
+        },
+        {
+          "name": "Atualizar empresa",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Verde Indstria Atualizada S.A.\",\n  \"cnpj\": \"12.345.678/0001-90\",\n  \"setor\": \"Manufatura Sustentvel\",\n  \"emailResponsavel\": \"sustentabilidade@verdeindustria.com.br\"\n}"
+            },
+            "url": "{{baseUrl}}/empresas/1"
+          }
+        },
+        {
+          "name": "Excluir empresa",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/empresas/4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Licenas",
+      "item": [
+        {
+          "name": "Listar licenas",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/licencas"
+          }
+        },
+        {
+          "name": "Buscar licena por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/licencas/1"
+          }
+        },
+        {
+          "name": "Licenas vencendo (prximos 30 dias)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/licencas/vencendo"
+          }
+        },
+        {
+          "name": "Criar licena",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipoLicenca\": \"Licena Ambiental Simplificada\",\n  \"numeroLicenca\": \"LAS-2025-999\",\n  \"dataEmissao\": \"2025-04-01\",\n  \"dataValidade\": \"2027-04-01\",\n  \"status\": \"ATIVA\",\n  \"orgaoEmissor\": \"CETESB\"\n}"
+            },
+            "url": "{{baseUrl}}/licencas"
+          }
+        },
+        {
+          "name": "Atualizar licena",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipoLicenca\": \"Licena de Operao\",\n  \"numeroLicenca\": \"LO-2023-001\",\n  \"dataEmissao\": \"2023-01-15\",\n  \"dataValidade\": \"2026-01-15\",\n  \"status\": \"SUSPENSA\",\n  \"orgaoEmissor\": \"CETESB\"\n}"
+            },
+            "url": "{{baseUrl}}/licencas/1"
+          }
+        },
+        {
+          "name": "Excluir licena",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/licencas/5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auditorias",
+      "item": [
+        {
+          "name": "Listar auditorias",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auditorias"
+          }
+        },
+        {
+          "name": "Buscar auditoria por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auditorias/1"
+          }
+        },
+        {
+          "name": "Auditorias por nível de risco",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auditorias/risco/ALTO"
+          }
+        },
+        {
+          "name": "Criar auditoria",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"dataAuditoria\": \"2025-04-15\",\n  \"resultado\": \"Conformidade total\",\n  \"observacoes\": \"Empresa atende todos os requisitos da ISO 14001\",\n  \"nivelRisco\": \"BAIXO\"\n}"
+            },
+            "url": "{{baseUrl}}/auditorias"
+          }
+        },
+        {
+          "name": "Atualizar auditoria",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"dataAuditoria\": \"2025-02-10\",\n  \"resultado\": \"Conformidade aps ao corretiva\",\n  \"observacoes\": \"Plano de ao executado com sucesso\",\n  \"nivelRisco\": \"BAIXO\"\n}"
+            },
+            "url": "{{baseUrl}}/auditorias/1"
+          }
+        },
+        {
+          "name": "Excluir auditoria",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/auditorias/3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Emisses",
+      "item": [
+        {
+          "name": "Listar emissões",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emissoes"
+          }
+        },
+        {
+          "name": "Buscar emissão por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emissoes/1"
+          }
+        },
+        {
+          "name": "Emisses por empresa",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emissoes/empresa/1"
+          }
+        },
+        {
+          "name": "Criar emissão",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"quantidadeCo2\": 750.5000,\n  \"fonteEmissao\": \"Combusto industrial\",\n  \"dataRegistro\": \"2025-04-30\",\n  \"unidadeMedida\": \"tCO2e\"\n}"
+            },
+            "url": "{{baseUrl}}/emissoes"
+          }
+        },
+        {
+          "name": "Atualizar emissão",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"quantidadeCo2\": 1100.0000,\n  \"fonteEmissao\": \"Caldeiras industriais (revisado)\",\n  \"dataRegistro\": \"2025-01-31\",\n  \"unidadeMedida\": \"tCO2e\"\n}"
+            },
+            "url": "{{baseUrl}}/emissoes/1"
+          }
+        },
+        {
+          "name": "Excluir emissão",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emissoes/4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compensaes",
+      "item": [
+        {
+          "name": "Listar compensações",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compensacoes"
+          }
+        },
+        {
+          "name": "Buscar compensação por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compensacoes/1"
+          }
+        },
+        {
+          "name": "Criar compensação",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipoCompensacao\": \"Reflorestamento\",\n  \"descricao\": \"Plantio de 10.000 mudas em rea degradada\",\n  \"quantidadeCompensada\": 3000.0000,\n  \"dataAcao\": \"2025-04-20\"\n}"
+            },
+            "url": "{{baseUrl}}/compensacoes"
+          }
+        },
+        {
+          "name": "Atualizar compensação",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipoCompensacao\": \"Reflorestamento\",\n  \"descricao\": \"Plantio de 6.000 mudas em parceria com SOS Mata Atlntica (ampliado)\",\n  \"quantidadeCompensada\": 1800.0000,\n  \"dataAcao\": \"2025-01-20\"\n}"
+            },
+            "url": "{{baseUrl}}/compensacoes/1"
+          }
+        },
+        {
+          "name": "Excluir compensação",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/compensacoes/3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Relatrios",
+      "item": [
+        {
+          "name": "Relatrio ESG por empresa",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/relatorios/empresa/1"
+          }
+        }
+      ]
+    }
+  ]
+}
