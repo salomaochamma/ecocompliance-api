@@ -37,11 +37,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Públicos
+
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
 
-                        // Apenas ADMIN para escrita
                         .requestMatchers(HttpMethod.POST, "/empresas/**", "/licencas/**", "/auditorias/**",
                                 "/emissoes/**", "/compensacoes/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/empresas/**", "/licencas/**", "/auditorias/**",
@@ -49,7 +48,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/empresas/**", "/licencas/**", "/auditorias/**",
                                 "/emissoes/**", "/compensacoes/**").hasRole("ADMIN")
 
-                        // Leitura para USER e ADMIN
                         .requestMatchers(HttpMethod.GET, "/empresas/**", "/licencas/**", "/auditorias/**",
                                 "/emissoes/**", "/compensacoes/**", "/relatorios/**")
                         .hasAnyRole("USER", "ADMIN")

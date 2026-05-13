@@ -36,7 +36,6 @@ public class Usuario implements UserDetails {
     @Column(name = "DS_ROLE", nullable = false, length = 10)
     private Role role;
 
-    // ============ UserDetails ============
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));

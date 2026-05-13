@@ -33,7 +33,7 @@ public class EmissaoService {
 
     @Transactional(readOnly = true)
     public List<EmissaoResponseDTO> buscarPorEmpresa(Long empresaId) {
-        empresaService.buscarEntidade(empresaId); // valida existência
+        empresaService.buscarEntidade(empresaId);
         return emissaoRepository.findByEmpresaId(empresaId).stream()
                 .map(this::toResponse)
                 .toList();

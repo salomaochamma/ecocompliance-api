@@ -1,9 +1,5 @@
 -- =========================================================
--- EcoCompliance API - Dados Iniciais
 -- =========================================================
--- USUARIOS sao criados pela classe DataInitializer
---   admin@ecocompliance.com  / admin123  (ROLE_ADMIN)
---   user@ecocompliance.com   / user123   (ROLE_USER)
 -- =========================================================
 
 -- ---------------------------------------------------------

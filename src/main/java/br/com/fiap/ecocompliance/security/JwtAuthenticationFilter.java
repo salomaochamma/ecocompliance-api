@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             final String email = jwtService.extrairUsername(jwt);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // Lookup tardio do UserDetailsService para evitar dependência circular
+
                 UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
