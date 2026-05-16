@@ -40,6 +40,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/empresas/**", "/licencas/**", "/auditorias/**",
                                 "/emissoes/**", "/compensacoes/**", "/agendamentos-reducao/**").hasRole("ADMIN")
