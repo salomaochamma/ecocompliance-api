@@ -521,9 +521,11 @@ Regra de negócio:
 
 ---
 
-## Testes unitários
+## Testes
 
-O projeto conta com **31 testes unitários** cobrindo as principais regras de negócio:
+O projeto conta com **51 testes** divididos em duas camadas:
+
+### Testes unitários de service (31 testes — Mockito puro)
 
 | Classe | Testes | O que cobre |
 |--------|--------|-------------|
@@ -531,13 +533,29 @@ O projeto conta com **31 testes unitários** cobrindo as principais regras de ne
 | `EmissaoServiceTest` | 8 | CRUD, filtro por empresa, empresa inexistente |
 | `AgendamentoServiceTest` | 14 | CRUD, filtro por empresa e status, bloqueio de edição (CONCLUIDO/CANCELADO), validação de datas |
 
+### Testes de controller (20 testes — @WebMvcTest + MockMvc)
+
+| Classe | Testes | O que cobre |
+|--------|--------|-------------|
+| `EmpresaControllerTest` | 6 | GET lista e por ID, 404, POST com ADMIN (201), 403 sem permissão |
+| `EmissaoControllerTest` | 6 | GET lista e por empresa, 404, POST com ADMIN (201), 403 sem permissão |
+| `AgendamentoControllerTest` | 8 | GET lista e por status, 404, POST com ADMIN (201), 403, PUT com BusinessException (400), DELETE (204) |
+
 Para executar:
 
 ```bash
+# Todos os testes
 mvn test
+
+# Apenas os testes de controller
+mvn test -Dtest="EmpresaControllerTest,EmissaoControllerTest,AgendamentoControllerTest"
+
+# Apenas os testes de service
+mvn test -Dtest="EmpresaServiceTest,EmissaoServiceTest,AgendamentoServiceTest"
 ```
 
-> Os testes usam Mockito com `mock-maker-subclass`, compatível com JDK 21+.
+> - Testes de service usam Mockito com `mock-maker-subclass`, compatível com JDK 21+.
+> - Testes de controller usam `@WebMvcTest` + `@Import(SecurityConfig.class)` para carregar as regras de autorização, e `@WithMockUser` para simular autenticação.
 
 ---
 
@@ -623,10 +641,15 @@ ecocompliance/
     │           ├── V2__insert_initial_data.sql
     │           └── V3__create_agendamento_reducao_carbono.sql
     └── test/
-        ├── java/br/com/fiap/ecocompliance/service/
-        │   ├── EmpresaServiceTest.java
-        │   ├── EmissaoServiceTest.java
-        │   └── AgendamentoServiceTest.java
+        ├── java/br/com/fiap/ecocompliance/
+        │   ├── controller/
+        │   │   ├── EmpresaControllerTest.java
+        │   │   ├── EmissaoControllerTest.java
+        │   │   └── AgendamentoControllerTest.java
+        │   └── service/
+        │       ├── EmpresaServiceTest.java
+        │       ├── EmissaoServiceTest.java
+        │       └── AgendamentoServiceTest.java
         └── resources/
             └── mockito-extensions/
                 └── org.mockito.plugins.MockMaker
