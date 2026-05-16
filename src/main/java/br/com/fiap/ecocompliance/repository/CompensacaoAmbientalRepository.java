@@ -16,4 +16,7 @@ public interface CompensacaoAmbientalRepository extends JpaRepository<Compensaca
 
     @Query("SELECT COALESCE(SUM(c.quantidadeCompensada), 0) FROM CompensacaoAmbiental c WHERE c.empresa.id = :empresaId")
     BigDecimal somaCompensacoesPorEmpresa(@Param("empresaId") Long empresaId);
+
+    @Query("SELECT COALESCE(SUM(c.quantidadeCompensada), 0) FROM CompensacaoAmbiental c")
+    BigDecimal somaTodasCompensacoes();
 }

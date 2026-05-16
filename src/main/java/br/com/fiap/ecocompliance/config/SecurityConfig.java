@@ -49,7 +49,8 @@ public class SecurityConfig {
                                 "/emissoes/**", "/compensacoes/**", "/agendamentos-reducao/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/empresas/**", "/licencas/**", "/auditorias/**",
-                                "/emissoes/**", "/compensacoes/**", "/relatorios/**", "/agendamentos-reducao/**")
+                                "/emissoes/**", "/compensacoes/**", "/relatorios/**",
+                                "/agendamentos-reducao/**", "/indicadores-sustentabilidade/**")
                         .hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated()

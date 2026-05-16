@@ -11,4 +11,6 @@ public interface AgendamentoReducaoCarbonoRepository extends JpaRepository<Agend
     List<AgendamentoReducaoCarbono> findByEmpresaId(Long empresaId);
 
     List<AgendamentoReducaoCarbono> findByStatus(StatusAgendamento status);
+
+    long countByStatus(StatusAgendamento status);
 }

@@ -15,4 +15,6 @@ public interface AuditoriaAmbientalRepository extends JpaRepository<AuditoriaAmb
     List<AuditoriaAmbiental> findByEmpresaId(Long empresaId);
 
     long countByEmpresaId(Long empresaId);
+
+    long countByNivelRisco(NivelRisco nivelRisco);
 }

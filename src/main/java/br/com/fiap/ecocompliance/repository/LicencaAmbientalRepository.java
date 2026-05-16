@@ -21,4 +21,6 @@ public interface LicencaAmbientalRepository extends JpaRepository<LicencaAmbient
                                         @Param("limite") LocalDate limite);
 
     long countByEmpresaIdAndStatus(Long empresaId, StatusLicenca status);
+
+    long countByStatus(StatusLicenca status);
 }
