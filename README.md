@@ -63,7 +63,7 @@ Permitir que uma organização:
 
 | Categoria | Tecnologia |
 |-----------|-----------|
-| Linguagem | **Java 21** (compatível com JDK 24) |
+| Linguagem | **Java 21** (testado com JDK 21 e JDK 24) |
 | Framework | **Spring Boot 3.3.x** |
 | Build | **Maven** |
 | Web | Spring Web (REST) |
@@ -100,7 +100,7 @@ security     → JwtService, JwtAuthenticationFilter
 
 ### Pré-requisitos
 
-- **JDK 21+** (testado com JDK 24)
+- **JDK 21+** (testado com JDK 21.0.11 Microsoft OpenJDK e JDK 24.0.2 Oracle)
 - **Maven 3.9+**
 - **Acesso a um Oracle Database** (FIAP, Oracle XE local, ou via docker-compose)
 - (Opcional) **Docker Desktop** para rodar com containers
