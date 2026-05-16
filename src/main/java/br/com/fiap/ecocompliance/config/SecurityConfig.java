@@ -42,14 +42,14 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/health").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/empresas/**", "/licencas/**", "/auditorias/**",
-                                "/emissoes/**", "/compensacoes/**").hasRole("ADMIN")
+                                "/emissoes/**", "/compensacoes/**", "/agendamentos-reducao/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/empresas/**", "/licencas/**", "/auditorias/**",
-                                "/emissoes/**", "/compensacoes/**").hasRole("ADMIN")
+                                "/emissoes/**", "/compensacoes/**", "/agendamentos-reducao/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/empresas/**", "/licencas/**", "/auditorias/**",
-                                "/emissoes/**", "/compensacoes/**").hasRole("ADMIN")
+                                "/emissoes/**", "/compensacoes/**", "/agendamentos-reducao/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/empresas/**", "/licencas/**", "/auditorias/**",
-                                "/emissoes/**", "/compensacoes/**", "/relatorios/**")
+                                "/emissoes/**", "/compensacoes/**", "/relatorios/**", "/agendamentos-reducao/**")
                         .hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated()
