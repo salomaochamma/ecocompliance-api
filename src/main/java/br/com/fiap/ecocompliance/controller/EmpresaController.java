@@ -5,12 +5,14 @@ import br.com.fiap.ecocompliance.dto.EmpresaResponseDTO;
 import br.com.fiap.ecocompliance.service.EmpresaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/empresas")
@@ -20,8 +22,9 @@ public class EmpresaController {
     private final EmpresaService empresaService;
 
     @GetMapping
-    public ResponseEntity<List<EmpresaResponseDTO>> listar() {
-        return ResponseEntity.ok(empresaService.listar());
+    public ResponseEntity<Page<EmpresaResponseDTO>> listar(
+            @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(empresaService.listar(pageable));
     }
 
     @GetMapping("/{id}")

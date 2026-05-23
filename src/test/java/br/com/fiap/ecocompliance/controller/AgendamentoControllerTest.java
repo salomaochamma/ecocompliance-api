@@ -17,6 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -80,15 +83,16 @@ class AgendamentoControllerTest {
     }
 
     @Test
-    @DisplayName("listar com usuário autenticado deve retornar 200")
+    @DisplayName("listar com usuário autenticado deve retornar 200 com página")
     @WithMockUser(roles = "USER")
     void listar_comUserAutenticado_retorna200() throws Exception {
-        when(agendamentoService.listar()).thenReturn(List.of(responseValido()));
+        when(agendamentoService.listar(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(responseValido())));
 
         mockMvc.perform(get("/agendamentos-reducao"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].titulo").value("Troca de Caldeiras"))
-                .andExpect(jsonPath("$[0].status").value("PENDENTE"));
+                .andExpect(jsonPath("$.content[0].titulo").value("Troca de Caldeiras"))
+                .andExpect(jsonPath("$.content[0].status").value("PENDENTE"));
     }
 
     @Test

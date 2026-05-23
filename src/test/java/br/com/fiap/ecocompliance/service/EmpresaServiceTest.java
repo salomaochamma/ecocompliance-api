@@ -14,6 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -55,15 +59,16 @@ class EmpresaServiceTest {
     }
 
     @Test
-    @DisplayName("listar deve retornar lista de DTOs")
-    void listar_deveRetornarListaDTOs() {
-        when(empresaRepository.findAll()).thenReturn(List.of(empresa));
+    @DisplayName("listar deve retornar página de DTOs")
+    void listar_deveRetornarPaginaDTOs() {
+        when(empresaRepository.findAll(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(empresa)));
 
-        List<EmpresaResponseDTO> resultado = empresaService.listar();
+        Page<EmpresaResponseDTO> resultado = empresaService.listar(Pageable.unpaged());
 
-        assertThat(resultado).hasSize(1);
-        assertThat(resultado.get(0).nome()).isEqualTo("Verde Industria S.A.");
-        verify(empresaRepository).findAll();
+        assertThat(resultado.getContent()).hasSize(1);
+        assertThat(resultado.getContent().get(0).nome()).isEqualTo("Verde Industria S.A.");
+        verify(empresaRepository).findAll(any(Pageable.class));
     }
 
     @Test

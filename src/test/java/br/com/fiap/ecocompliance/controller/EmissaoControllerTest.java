@@ -15,6 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -67,14 +70,15 @@ class EmissaoControllerTest {
     }
 
     @Test
-    @DisplayName("listar com usuário autenticado deve retornar 200")
+    @DisplayName("listar com usuário autenticado deve retornar 200 com página")
     @WithMockUser(roles = "USER")
     void listar_comUserAutenticado_retorna200() throws Exception {
-        when(emissaoService.listar()).thenReturn(List.of(responseValido()));
+        when(emissaoService.listar(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(responseValido())));
 
         mockMvc.perform(get("/emissoes"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].fonteEmissao").value("Caldeiras industriais"));
+                .andExpect(jsonPath("$.content[0].fonteEmissao").value("Caldeiras industriais"));
     }
 
     @Test

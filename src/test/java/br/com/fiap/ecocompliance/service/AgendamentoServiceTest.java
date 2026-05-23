@@ -16,6 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -83,15 +87,16 @@ class AgendamentoServiceTest {
     }
 
     @Test
-    @DisplayName("listar deve retornar lista de DTOs mapeados")
-    void listar_deveRetornarListaDTOs() {
-        when(agendamentoRepository.findAll()).thenReturn(List.of(agendamento));
+    @DisplayName("listar deve retornar página de DTOs mapeados")
+    void listar_deveRetornarPaginaDTOs() {
+        when(agendamentoRepository.findAll(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(agendamento)));
 
-        List<AgendamentoResponseDTO> resultado = agendamentoService.listar();
+        Page<AgendamentoResponseDTO> resultado = agendamentoService.listar(Pageable.unpaged());
 
-        assertThat(resultado).hasSize(1);
-        assertThat(resultado.get(0).titulo()).isEqualTo("Troca de Caldeiras por Biomassa");
-        verify(agendamentoRepository).findAll();
+        assertThat(resultado.getContent()).hasSize(1);
+        assertThat(resultado.getContent().get(0).titulo()).isEqualTo("Troca de Caldeiras por Biomassa");
+        verify(agendamentoRepository).findAll(any(Pageable.class));
     }
 
     @Test

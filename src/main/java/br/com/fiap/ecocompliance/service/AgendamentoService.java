@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 @Service
@@ -22,10 +25,8 @@ public class AgendamentoService {
     private final EmpresaService empresaService;
 
     @Transactional(readOnly = true)
-    public List<AgendamentoResponseDTO> listar() {
-        return agendamentoRepository.findAll().stream()
-                .map(this::toResponse)
-                .toList();
+    public Page<AgendamentoResponseDTO> listar(Pageable pageable) {
+        return agendamentoRepository.findAll(pageable).map(this::toResponse);
     }
 
     @Transactional(readOnly = true)

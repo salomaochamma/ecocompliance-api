@@ -29,6 +29,7 @@ public record AgendamentoRequestDTO(
         BigDecimal metaCo2,
 
         @NotNull(message = "A data de início é obrigatória")
+        @FutureOrPresent(message = "A data de início não pode ser no passado")
         LocalDate dataInicio,
 
         @NotNull(message = "A data de fim é obrigatória")

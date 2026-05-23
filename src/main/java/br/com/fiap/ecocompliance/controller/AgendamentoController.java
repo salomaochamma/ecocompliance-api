@@ -6,6 +6,9 @@ import br.com.fiap.ecocompliance.entity.StatusAgendamento;
 import br.com.fiap.ecocompliance.service.AgendamentoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +24,9 @@ public class AgendamentoController {
     private final AgendamentoService agendamentoService;
 
     @GetMapping
-    public ResponseEntity<List<AgendamentoResponseDTO>> listar() {
-        return ResponseEntity.ok(agendamentoService.listar());
+    public ResponseEntity<Page<AgendamentoResponseDTO>> listar(
+            @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(agendamentoService.listar(pageable));
     }
 
     @GetMapping("/{id}")
