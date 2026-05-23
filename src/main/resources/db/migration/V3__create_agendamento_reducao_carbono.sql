@@ -40,7 +40,7 @@ VALUES (2, 'Instalacao de Paineis Solares',
 INSERT INTO TB_AGENDAMENTO_REDUCAO_CARBONO
     (ID_EMPRESA, DS_TITULO, DS_DESCRICAO, DS_TIPO_INICIATIVA, VL_META_CO2, DT_INICIO, DT_FIM, DS_STATUS)
 VALUES (3, 'Eletrificacao da Frota de Entregas',
-        'Substituicao de 50%% dos veiculos de entrega por modelos eletricos ate dezembro de 2026',
+        'Substituicao de 50% dos veiculos de entrega por modelos eletricos ate dezembro de 2026',
         'Eletrificacao de Frota', 1800.0000, DATE '2025-08-01', DATE '2026-12-31', 'PENDENTE');
 
 COMMIT;
