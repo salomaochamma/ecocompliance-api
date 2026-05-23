@@ -20,6 +20,7 @@ API RESTful para **Governança e Compliance Ambiental (ESG)**, desenvolvida em *
 - [Documentação interativa (Swagger)](#documentação-interativa-swagger)
 - [Usuários iniciais](#usuários-iniciais)
 - [Endpoints disponíveis](#endpoints-disponíveis)
+- [Paginação nos endpoints de listagem](#paginação-nos-endpoints-de-listagem)
 - [Exemplos de JSON para testar](#exemplos-de-json-para-testar)
 - [Testes unitários](#testes-unitários)
 - [Estrutura de pacotes](#estrutura-de-pacotes)
@@ -237,70 +238,70 @@ Authorization: Bearer <token>
 
 ### Empresas
 
-| Método | Rota | Roles |
-|--------|------|-------|
-| `GET` | `/empresas` | USER, ADMIN |
-| `GET` | `/empresas/{id}` | USER, ADMIN |
-| `POST` | `/empresas` | ADMIN |
-| `PUT` | `/empresas/{id}` | ADMIN |
-| `DELETE` | `/empresas/{id}` | ADMIN |
+| Método | Rota | Roles | Descrição |
+|--------|------|-------|-----------|
+| `GET` | `/empresas` | USER, ADMIN | Lista paginada |
+| `GET` | `/empresas/{id}` | USER, ADMIN | Busca por ID |
+| `POST` | `/empresas` | ADMIN | Cria empresa |
+| `PUT` | `/empresas/{id}` | ADMIN | Atualiza empresa |
+| `DELETE` | `/empresas/{id}` | ADMIN | Remove empresa |
 
 ### Licenças ambientais
 
-| Método | Rota | Roles |
-|--------|------|-------|
-| `GET` | `/licencas` | USER, ADMIN |
-| `GET` | `/licencas/{id}` | USER, ADMIN |
-| `GET` | `/licencas/vencendo` | USER, ADMIN |
-| `POST` | `/licencas` | ADMIN |
-| `PUT` | `/licencas/{id}` | ADMIN |
-| `DELETE` | `/licencas/{id}` | ADMIN |
+| Método | Rota | Roles | Descrição |
+|--------|------|-------|-----------|
+| `GET` | `/licencas` | USER, ADMIN | Lista paginada |
+| `GET` | `/licencas/{id}` | USER, ADMIN | Busca por ID |
+| `GET` | `/licencas/vencendo` | USER, ADMIN | Licenças que vencem em até 30 dias |
+| `POST` | `/licencas` | ADMIN | Cria licença |
+| `PUT` | `/licencas/{id}` | ADMIN | Atualiza licença |
+| `DELETE` | `/licencas/{id}` | ADMIN | Remove licença |
 
 ### Auditorias
 
-| Método | Rota | Roles |
-|--------|------|-------|
-| `GET` | `/auditorias` | USER, ADMIN |
-| `GET` | `/auditorias/{id}` | USER, ADMIN |
-| `GET` | `/auditorias/risco/{nivelRisco}` | USER, ADMIN |
-| `POST` | `/auditorias` | ADMIN |
-| `PUT` | `/auditorias/{id}` | ADMIN |
-| `DELETE` | `/auditorias/{id}` | ADMIN |
+| Método | Rota | Roles | Descrição |
+|--------|------|-------|-----------|
+| `GET` | `/auditorias` | USER, ADMIN | Lista paginada |
+| `GET` | `/auditorias/{id}` | USER, ADMIN | Busca por ID |
+| `GET` | `/auditorias/risco/{nivelRisco}` | USER, ADMIN | Filtra por nível de risco |
+| `POST` | `/auditorias` | ADMIN | Cria auditoria |
+| `PUT` | `/auditorias/{id}` | ADMIN | Atualiza auditoria |
+| `DELETE` | `/auditorias/{id}` | ADMIN | Remove auditoria |
 
 ### Emissões de carbono
 
-| Método | Rota | Roles |
-|--------|------|-------|
-| `GET` | `/emissoes` | USER, ADMIN |
-| `GET` | `/emissoes/{id}` | USER, ADMIN |
-| `GET` | `/emissoes/empresa/{empresaId}` | USER, ADMIN |
-| `POST` | `/emissoes` | ADMIN |
-| `PUT` | `/emissoes/{id}` | ADMIN |
-| `DELETE` | `/emissoes/{id}` | ADMIN |
+| Método | Rota | Roles | Descrição |
+|--------|------|-------|-----------|
+| `GET` | `/emissoes` | USER, ADMIN | Lista paginada |
+| `GET` | `/emissoes/{id}` | USER, ADMIN | Busca por ID |
+| `GET` | `/emissoes/empresa/{empresaId}` | USER, ADMIN | Filtra por empresa |
+| `POST` | `/emissoes` | ADMIN | Registra emissão |
+| `PUT` | `/emissoes/{id}` | ADMIN | Atualiza emissão |
+| `DELETE` | `/emissoes/{id}` | ADMIN | Remove emissão |
 
 ### Compensações ambientais
 
-| Método | Rota | Roles |
-|--------|------|-------|
-| `GET` | `/compensacoes` | USER, ADMIN |
-| `GET` | `/compensacoes/{id}` | USER, ADMIN |
-| `POST` | `/compensacoes` | ADMIN |
-| `PUT` | `/compensacoes/{id}` | ADMIN |
-| `DELETE` | `/compensacoes/{id}` | ADMIN |
+| Método | Rota | Roles | Descrição |
+|--------|------|-------|-----------|
+| `GET` | `/compensacoes` | USER, ADMIN | Lista paginada |
+| `GET` | `/compensacoes/{id}` | USER, ADMIN | Busca por ID |
+| `POST` | `/compensacoes` | ADMIN | Registra compensação |
+| `PUT` | `/compensacoes/{id}` | ADMIN | Atualiza compensação |
+| `DELETE` | `/compensacoes/{id}` | ADMIN | Remove compensação |
 
 ### Agendamentos de redução de carbono
 
 | Método | Rota | Roles | Descrição |
 |--------|------|-------|-----------|
-| `GET` | `/agendamentos-reducao` | USER, ADMIN | Lista todos os agendamentos |
+| `GET` | `/agendamentos-reducao` | USER, ADMIN | Lista paginada |
 | `GET` | `/agendamentos-reducao/{id}` | USER, ADMIN | Busca por ID |
 | `GET` | `/agendamentos-reducao/empresa/{empresaId}` | USER, ADMIN | Filtra por empresa |
 | `GET` | `/agendamentos-reducao/status/{status}` | USER, ADMIN | Filtra por status |
-| `POST` | `/agendamentos-reducao` | ADMIN | Cria novo agendamento |
+| `POST` | `/agendamentos-reducao` | ADMIN | Cria agendamento |
 | `PUT` | `/agendamentos-reducao/{id}` | ADMIN | Atualiza agendamento |
 | `DELETE` | `/agendamentos-reducao/{id}` | ADMIN | Remove agendamento |
 
-> **Regras de negócio:** a `dataFim` deve ser posterior à `dataInicio`. Agendamentos com status `CONCLUIDO` ou `CANCELADO` não podem ser editados.
+> **Regras de negócio:** a `dataFim` deve ser posterior à `dataInicio`; a `dataInicio` não pode ser no passado. Agendamentos com status `CONCLUIDO` ou `CANCELADO` não podem ser editados.
 >
 > **Status aceitos:** `PENDENTE`, `EM_ANDAMENTO`, `CONCLUIDO`, `CANCELADO`.
 
@@ -328,6 +329,47 @@ Authorization: Bearer <token>
 | `403 Forbidden` | Usuário autenticado mas sem permissão |
 | `404 Not Found` | Recurso não encontrado |
 | `409 Conflict` | Recurso duplicado (CNPJ, e-mail, número de licença) |
+
+---
+
+## Paginação nos endpoints de listagem
+
+Os seis endpoints de listagem (`GET /empresas`, `/emissoes`, `/auditorias`, `/compensacoes`, `/licencas`, `/agendamentos-reducao`) suportam paginação e ordenação via query params:
+
+| Parâmetro | Tipo | Default | Descrição |
+|-----------|------|---------|-----------|
+| `page` | int | `0` | Número da página (base 0) |
+| `size` | int | `20` | Itens por página |
+| `sort` | string | `id,asc` | Campo e direção de ordenação |
+
+**Exemplos:**
+
+```
+GET /empresas?page=0&size=10&sort=nome,asc
+GET /emissoes?page=1&size=5&sort=dataRegistro,desc
+GET /licencas?page=0&size=20&sort=dataValidade,asc
+```
+
+**Formato da resposta paginada:**
+
+```json
+{
+  "content": [ ... ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 20,
+    "sort": { "sorted": true, "empty": false }
+  },
+  "totalElements": 42,
+  "totalPages": 3,
+  "last": false,
+  "first": true,
+  "numberOfElements": 20,
+  "empty": false
+}
+```
+
+> Os dados ficam no campo `content`. Os metadados de paginação (`totalElements`, `totalPages`, etc.) permitem que o cliente construa navegação.
 
 ---
 
@@ -409,11 +451,13 @@ Content-Type: application/json
   "descricao": "Instalação de 300 kWp de energia fotovoltaica na planta industrial",
   "tipoIniciativa": "Energia Renovável",
   "metaCo2": 450.00,
-  "dataInicio": "2025-07-01",
-  "dataFim": "2025-12-31",
+  "dataInicio": "2026-07-01",
+  "dataFim": "2026-12-31",
   "status": "PENDENTE"
 }
 ```
+
+> `dataInicio` não pode ser no passado (`@FutureOrPresent`). `dataFim` deve ser futura (`@Future`) e posterior à `dataInicio`.
 
 ### Atualizar status de agendamento
 
@@ -428,10 +472,17 @@ Content-Type: application/json
   "descricao": "Instalação de 300 kWp de energia fotovoltaica na planta industrial",
   "tipoIniciativa": "Energia Renovável",
   "metaCo2": 450.00,
-  "dataInicio": "2025-07-01",
-  "dataFim": "2025-12-31",
+  "dataInicio": "2026-07-01",
+  "dataFim": "2026-12-31",
   "status": "EM_ANDAMENTO"
 }
+```
+
+### Listar emissões com paginação
+
+```http
+GET /emissoes?page=0&size=5&sort=dataRegistro,desc
+Authorization: Bearer <token>
 ```
 
 ### Indicadores globais de sustentabilidade
@@ -500,7 +551,7 @@ Validação:
   "message": "Erro de validação nos campos",
   "path": "/agendamentos-reducao",
   "fieldErrors": [
-    { "campo": "metaCo2", "mensagem": "A meta de CO2 deve ser positiva" },
+    { "campo": "dataInicio", "mensagem": "A data de início não pode ser no passado" },
     { "campo": "dataFim", "mensagem": "A data de fim deve ser futura" }
   ]
 }
@@ -523,23 +574,31 @@ Regra de negócio:
 
 ## Testes
 
-O projeto conta com **51 testes** divididos em duas camadas:
+O projeto conta com **111 testes** (0 falhas) divididos em duas camadas.
 
-### Testes unitários de service (31 testes — Mockito puro)
+### Testes unitários de service — Mockito puro (`@ExtendWith(MockitoExtension.class)`)
 
 | Classe | Testes | O que cobre |
 |--------|--------|-------------|
 | `EmpresaServiceTest` | 9 | CRUD completo, validação de CNPJ duplicado |
 | `EmissaoServiceTest` | 8 | CRUD, filtro por empresa, empresa inexistente |
-| `AgendamentoServiceTest` | 14 | CRUD, filtro por empresa e status, bloqueio de edição (CONCLUIDO/CANCELADO), validação de datas |
+| `AgendamentoServiceTest` | 14 | CRUD, filtro por empresa/status, bloqueio de edição por status, validação de datas |
+| `AuditoriaServiceTest` | 10 | CRUD, filtro por nível de risco, empresa inexistente |
+| `CompensacaoServiceTest` | 8 | CRUD, empresa inexistente |
+| `LicencaServiceTest` | 9 | CRUD, licenças vencendo, validação de datas (validade < emissão) |
+| `IndicadoresServiceTest` | 3 | Agregação de todos os indicadores, saldo positivo/zero |
+| `RelatorioServiceTest` | 5 | Relatório completo, sem auditorias, cálculo de maior risco (BAIXO/MEDIO/ALTO) |
 
-### Testes de controller (20 testes — @WebMvcTest + MockMvc)
+### Testes de controller — `@WebMvcTest` + MockMvc
 
 | Classe | Testes | O que cobre |
 |--------|--------|-------------|
-| `EmpresaControllerTest` | 6 | GET lista e por ID, 404, POST com ADMIN (201), 403 sem permissão |
-| `EmissaoControllerTest` | 6 | GET lista e por empresa, 404, POST com ADMIN (201), 403 sem permissão |
-| `AgendamentoControllerTest` | 8 | GET lista e por status, 404, POST com ADMIN (201), 403, PUT com BusinessException (400), DELETE (204) |
+| `EmpresaControllerTest` | 6 | GET lista paginada, GET por ID, 404, POST (201), 403 |
+| `EmissaoControllerTest` | 6 | GET lista paginada, GET por empresa, 404, POST (201), 403 |
+| `AgendamentoControllerTest` | 8 | GET lista paginada, GET por status, 404, POST (201), 403, PUT com BusinessException (400), DELETE (204) |
+| `AuditoriaControllerTest` | 8 | GET lista paginada, GET por risco, 404, POST (201), 403, DELETE (204) |
+| `CompensacaoControllerTest` | 8 | GET lista paginada, GET por ID, 404, POST (201), PUT (200), 403, DELETE (204) |
+| `LicencaControllerTest` | 9 | GET lista paginada, GET vencendo, 404, POST (201), POST datas inválidas (400), 403, DELETE (204) |
 
 Para executar:
 
@@ -547,15 +606,19 @@ Para executar:
 # Todos os testes
 mvn test
 
-# Apenas os testes de controller
-mvn test -Dtest="EmpresaControllerTest,EmissaoControllerTest,AgendamentoControllerTest"
-
 # Apenas os testes de service
-mvn test -Dtest="EmpresaServiceTest,EmissaoServiceTest,AgendamentoServiceTest"
+mvn test -Dtest="*ServiceTest"
+
+# Apenas os testes de controller
+mvn test -Dtest="*ControllerTest"
+
+# Uma classe específica
+mvn test -Dtest="LicencaServiceTest"
 ```
 
 > - Testes de service usam Mockito com `mock-maker-subclass`, compatível com JDK 21+.
 > - Testes de controller usam `@WebMvcTest` + `@Import(SecurityConfig.class)` para carregar as regras de autorização, e `@WithMockUser` para simular autenticação.
+> - Respostas de listagem retornam `Page<T>` — os asserts de controller usam `$.content[0].campo`.
 
 ---
 
@@ -641,18 +704,23 @@ ecocompliance/
     │           ├── V2__insert_initial_data.sql
     │           └── V3__create_agendamento_reducao_carbono.sql
     └── test/
-        ├── java/br/com/fiap/ecocompliance/
-        │   ├── controller/
-        │   │   ├── EmpresaControllerTest.java
-        │   │   ├── EmissaoControllerTest.java
-        │   │   └── AgendamentoControllerTest.java
-        │   └── service/
-        │       ├── EmpresaServiceTest.java
-        │       ├── EmissaoServiceTest.java
-        │       └── AgendamentoServiceTest.java
-        └── resources/
-            └── mockito-extensions/
-                └── org.mockito.plugins.MockMaker
+        └── java/br/com/fiap/ecocompliance/
+            ├── controller/
+            │   ├── EmpresaControllerTest.java
+            │   ├── EmissaoControllerTest.java
+            │   ├── AgendamentoControllerTest.java
+            │   ├── AuditoriaControllerTest.java
+            │   ├── CompensacaoControllerTest.java
+            │   └── LicencaControllerTest.java
+            └── service/
+                ├── EmpresaServiceTest.java
+                ├── EmissaoServiceTest.java
+                ├── AgendamentoServiceTest.java
+                ├── AuditoriaServiceTest.java
+                ├── CompensacaoServiceTest.java
+                ├── LicencaServiceTest.java
+                ├── IndicadoresServiceTest.java
+                └── RelatorioServiceTest.java
 ```
 
 ---
@@ -660,7 +728,8 @@ ecocompliance/
 ## Boas práticas aplicadas
 
 - **DTOs como `Record`** (imutáveis) — entidades nunca expostas via REST.
-- **Bean Validation** em todos os DTOs de entrada (`@NotBlank`, `@NotNull`, `@Email`, `@Positive`, `@Future`, `@PastOrPresent`, `@Size`, `@Pattern`).
+- **Bean Validation** em todos os DTOs de entrada (`@NotBlank`, `@NotNull`, `@Email`, `@Positive`, `@Future`, `@FutureOrPresent`, `@PastOrPresent`, `@Size`, `@Pattern`).
+- **Paginação** nos endpoints de listagem — `Page<T>` com `@PageableDefault`, sem alteração de migrations.
 - **`@RestControllerAdvice`** centralizando o tratamento de erros e padronizando o JSON de resposta.
 - **Regras de negócio no service** — validação de datas, bloqueio de edição por status.
 - **Códigos HTTP semânticos** (200/201/204/400/401/403/404/409).
@@ -670,7 +739,7 @@ ecocompliance/
 - **Flyway** para versionamento de schema (V1 tabelas, V2 dados, V3 agendamentos).
 - **Lombok 1.18.38** compatível com JDK 21–24.
 - **SpringDoc OpenAPI** com esquema de segurança Bearer JWT documentado.
-- **Testes unitários** com Mockito (31 testes, 0 falhas) sem necessidade de contexto Spring.
+- **111 testes** (63 de service + 45 de controller, Mockito puro + `@WebMvcTest`) — 0 falhas.
 - **`spring.jpa.open-in-view=false`** evita lazy loading fora da transação.
 - **Docker multi-stage** para imagem final pequena (~250 MB com JRE Alpine).
 - **Healthcheck** no `docker-compose` garante que a API só sobe após o Oracle estar pronto.
