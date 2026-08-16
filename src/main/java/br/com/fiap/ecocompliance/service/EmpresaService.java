@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 @Service
@@ -19,10 +22,8 @@ public class EmpresaService {
     private final EmpresaRepository empresaRepository;
 
     @Transactional(readOnly = true)
-    public List<EmpresaResponseDTO> listar() {
-        return empresaRepository.findAll().stream()
-                .map(this::toResponse)
-                .toList();
+    public Page<EmpresaResponseDTO> listar(Pageable pageable) {
+        return empresaRepository.findAll(pageable).map(this::toResponse);
     }
 
     @Transactional(readOnly = true)

@@ -5,6 +5,9 @@ import br.com.fiap.ecocompliance.dto.EmissaoResponseDTO;
 import br.com.fiap.ecocompliance.service.EmissaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,9 @@ public class EmissaoController {
     private final EmissaoService emissaoService;
 
     @GetMapping
-    public ResponseEntity<List<EmissaoResponseDTO>> listar() {
-        return ResponseEntity.ok(emissaoService.listar());
+    public ResponseEntity<Page<EmissaoResponseDTO>> listar(
+            @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(emissaoService.listar(pageable));
     }
 
     @GetMapping("/{id}")

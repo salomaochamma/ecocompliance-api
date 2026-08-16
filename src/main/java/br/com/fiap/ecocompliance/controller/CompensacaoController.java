@@ -5,6 +5,9 @@ import br.com.fiap.ecocompliance.dto.CompensacaoResponseDTO;
 import br.com.fiap.ecocompliance.service.CompensacaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,9 @@ public class CompensacaoController {
     private final CompensacaoService compensacaoService;
 
     @GetMapping
-    public ResponseEntity<List<CompensacaoResponseDTO>> listar() {
-        return ResponseEntity.ok(compensacaoService.listar());
+    public ResponseEntity<Page<CompensacaoResponseDTO>> listar(
+            @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(compensacaoService.listar(pageable));
     }
 
     @GetMapping("/{id}")

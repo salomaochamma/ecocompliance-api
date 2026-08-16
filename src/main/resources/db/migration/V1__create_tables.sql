@@ -29,6 +29,9 @@ CREATE TABLE TB_USUARIO (
     CONSTRAINT CK_USUARIO_ROLE CHECK (DS_ROLE IN ('ADMIN', 'USER'))
 );
 
+-- IX implícito: UK_USUARIO_EMAIL cria um índice B-tree único em DS_EMAIL no Oracle,
+-- cobrindo as consultas por e-mail do UserDetailsService sem índice adicional.
+
 -- ---------------------------------------------------------
 -- TB_LICENCA_AMBIENTAL
 -- ---------------------------------------------------------

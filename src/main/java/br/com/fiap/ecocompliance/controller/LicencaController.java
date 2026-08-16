@@ -5,6 +5,9 @@ import br.com.fiap.ecocompliance.dto.LicencaResponseDTO;
 import br.com.fiap.ecocompliance.service.LicencaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,9 @@ public class LicencaController {
     private final LicencaService licencaService;
 
     @GetMapping
-    public ResponseEntity<List<LicencaResponseDTO>> listar() {
-        return ResponseEntity.ok(licencaService.listar());
+    public ResponseEntity<Page<LicencaResponseDTO>> listar(
+            @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(licencaService.listar(pageable));
     }
 
     @GetMapping("/{id}")

@@ -16,4 +16,7 @@ public interface EmissaoCarbonoRepository extends JpaRepository<EmissaoCarbono, 
 
     @Query("SELECT COALESCE(SUM(e.quantidadeCo2), 0) FROM EmissaoCarbono e WHERE e.empresa.id = :empresaId")
     BigDecimal somaEmissoesPorEmpresa(@Param("empresaId") Long empresaId);
+
+    @Query("SELECT COALESCE(SUM(e.quantidadeCo2), 0) FROM EmissaoCarbono e")
+    BigDecimal somaTodasEmissoes();
 }
