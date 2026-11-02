@@ -9,11 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-/**
- * Cria os usuários iniciais (ADMIN e USER) caso ainda não existam.
- * Esta abordagem garante que as senhas em BCrypt sejam geradas pelo
- * PasswordEncoder do Spring, evitando hashes inválidos no SQL.
- */
 @Component
 @RequiredArgsConstructor
 @Slf4j
