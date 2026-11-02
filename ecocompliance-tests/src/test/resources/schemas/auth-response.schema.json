@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "AuthResponseDTO",
+  "description": "Contrato da resposta de POST /auth/login e POST /auth/register (nunca expõe a senha)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "token",
+    "tipo",
+    "email",
+    "nome",
+    "role"
+  ],
+  "properties": {
+    "token": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "Bearer"
+      ]
+    },
+    "email": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 150
+    },
+    "nome": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 150
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ADMIN",
+        "USER"
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "EmissaoResponseDTO",
+  "description": "Contrato de um item retornado por GET/POST/PUT /emissoes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "empresaId",
+    "empresaNome",
+    "quantidadeCo2",
+    "fonteEmissao",
+    "dataRegistro",
+    "unidadeMedida"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaNome": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150
+    },
+    "quantidadeCo2": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "fonteEmissao": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150
+    },
+    "dataRegistro": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "unidadeMedida": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    }
+  }
+}

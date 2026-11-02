@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "LicencaResponseDTO",
+  "description": "Contrato de um item retornado por GET/POST/PUT /licencas",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "empresaId",
+    "empresaNome",
+    "tipoLicenca",
+    "numeroLicenca",
+    "dataEmissao",
+    "dataValidade",
+    "status",
+    "orgaoEmissor"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaNome": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150
+    },
+    "tipoLicenca": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "numeroLicenca": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "dataEmissao": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "dataValidade": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ATIVA",
+        "VENCIDA",
+        "SUSPENSA",
+        "CANCELADA"
+      ]
+    },
+    "orgaoEmissor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ErrorResponse",
+  "description": "Contrato padronizado de erro do GlobalExceptionHandler (400, 401, 404, 409)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "timestamp",
+    "status",
+    "error",
+    "message",
+    "path",
+    "fieldErrors"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]{1,9})?)?$"
+    },
+    "status": {
+      "type": "integer",
+      "minimum": 400,
+      "maximum": 599
+    },
+    "error": {
+      "type": "string",
+      "minLength": 1
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^/"
+    },
+    "fieldErrors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "campo",
+          "mensagem"
+        ],
+        "properties": {
+          "campo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mensagem": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

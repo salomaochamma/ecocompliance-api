@@ -20,6 +20,7 @@ API RESTful para **Governança e Compliance Ambiental (ESG)**, desenvolvida em *
 - [Usuários iniciais](#usuários-iniciais)
 - [Endpoints disponíveis](#endpoints-disponíveis)
 - [Exemplos de JSON para testar](#exemplos-de-json-para-testar)
+- [Testes automatizados (BDD)](#testes-automatizados-bdd)
 - [Postman Collection](#postman-collection)
 - [Estrutura de pacotes](#estrutura-de-pacotes)
 
@@ -456,6 +457,24 @@ Recurso não encontrado:
   "fieldErrors": null
 }
 ```
+
+---
+
+## Testes automatizados (BDD)
+
+A pasta [`ecocompliance-tests/`](ecocompliance-tests/README.md) contém a suíte de testes automatizados da API:
+**cenários BDD em Gherkin (português)** executados com **Cucumber + RestAssured**, validando
+**status code, corpo JSON e contrato (JSON Schema)** dos **31 endpoints**, em cenários positivos e negativos.
+
+```bash
+# Oracle XE + API + testes em containers, com um único comando
+./run-tests.sh                                              # Linux, macOS ou WSL
+powershell -ExecutionPolicy Bypass -File .\run-tests.ps1    # Windows (Docker Desktop aberto)
+```
+
+- Relatório HTML com as evidências de cada requisição: `ecocompliance-tests/reports/cucumber.html`
+- Pipeline de CI: `.github/workflows/testes-api.yml` (GitHub Actions)
+- Instruções completas, cobertura por endpoint e dicionário de passos: [`ecocompliance-tests/README.md`](ecocompliance-tests/README.md)
 
 ---
 

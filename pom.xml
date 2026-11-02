@@ -23,7 +23,6 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -41,14 +40,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Oracle Database -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc11</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Flyway -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -58,14 +55,12 @@
             <artifactId>flyway-database-oracle</artifactId>
         </dependency>
 
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -84,7 +79,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

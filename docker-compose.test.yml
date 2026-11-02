@@ -1,0 +1,40 @@
+name: ecocompliance-testes
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: ecocompliance
+      APP_USER_PASSWORD: ecocompliance123
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 60s
+
+  ecocompliance-api:
+    build: .
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:oracle:thin:@oracle-db:1521/XEPDB1
+      DB_USERNAME: ecocompliance
+      DB_PASSWORD: ecocompliance123
+      JWT_SECRET: Y2hhdmUtc2VjcmV0YS1lY29jb21wbGlhbmNlLWFwaS1maWFwLTIwMjUtbXVpdG8tbG9uZ2EtZS1zZWd1cmE=
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+      SPRING_JPA_SHOW_SQL: "false"
+      LOGGING_LEVEL_ORG_HIBERNATE_SQL: "WARN"
+
+  api-tests:
+    build: ./ecocompliance-tests
+    depends_on:
+      - ecocompliance-api
+    environment:
+      API_BASE_URL: http://ecocompliance-api:8080
+      API_WAIT_TIMEOUT_SECONDS: "300"
+      CUCUMBER_FILTER_TAGS: "${CUCUMBER_FILTER_TAGS:-not @defeito}"
+    volumes:
+      - ./ecocompliance-tests/reports:/tests/target/cucumber-reports

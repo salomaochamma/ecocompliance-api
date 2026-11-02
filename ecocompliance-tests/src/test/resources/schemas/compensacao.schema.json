@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CompensacaoResponseDTO",
+  "description": "Contrato de um item retornado por GET/POST/PUT /compensacoes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "empresaId",
+    "empresaNome",
+    "tipoCompensacao",
+    "descricao",
+    "quantidadeCompensada",
+    "dataAcao"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "empresaNome": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150
+    },
+    "tipoCompensacao": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "descricao": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "quantidadeCompensada": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "dataAcao": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  }
+}
