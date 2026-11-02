@@ -1,0 +1,62 @@
+name: Testes de API (BDD)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "Filtro de tags do Cucumber (ex.: @smoke, @empresas, @defeito)"
+        required: false
+        default: "not @defeito"
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  testes-bdd:
+    name: Cucumber + RestAssured (Oracle XE + API em Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      CUCUMBER_FILTER_TAGS: ${{ github.event.inputs.tags || 'not @defeito' }}
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v5
+
+      - name: Preparar pasta de relatórios
+        run: mkdir -p ecocompliance-tests/reports
+
+      - name: Subir Oracle XE + API e executar a suíte BDD
+        run: >
+          docker compose -f docker-compose.test.yml up --build
+          --attach api-tests --abort-on-container-exit --exit-code-from api-tests
+
+      - name: Log da API (somente se falhar)
+        if: failure()
+        run: docker compose -f docker-compose.test.yml logs --tail 200 ecocompliance-api
+
+      - name: Publicar o resultado dos testes
+        if: always()
+        uses: mikepenz/action-junit-report@v6
+        with:
+          report_paths: "ecocompliance-tests/reports/cucumber-junit.xml"
+          check_name: "Resultado da suíte BDD (Cucumber)"
+          include_passed: true
+          detailed_summary: true
+          require_tests: true
+
+      - name: Anexar relatórios do Cucumber (HTML, JSON e XML)
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: relatorio-cucumber
+          path: ecocompliance-tests/reports/
+          if-no-files-found: warn
+
+      - name: Derrubar o ambiente
+        if: always()
+        run: docker compose -f docker-compose.test.yml down -v --remove-orphans
